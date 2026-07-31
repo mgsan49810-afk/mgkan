@@ -2,25 +2,22 @@ import sys
 import os
 
 # ၁။ လက်ရှိ tool လမ်းကြောင်းကို ရှာပြီး Python path ထဲထည့်မယ်
-current_dir = os.path.dirname(os.path.abspath(file))
+current_dir = os.path.dirname(os.path.abspath(file))  # file → file ပြောင်းထားဖို့လိုတယ်
 if current_dir not in sys.path:
     sys.path.insert(0, current_dir)
 
 # ၂။ Low-level standard output buffer ကို ကြားဖြတ်ဖမ်းမည့် Class
 class SafeTextHook:
-    def init(self, original_stream):
+    def init(self, original_stream):   # ← ဒီမှာ init လို့ပြောင်း
         self.stream = original_stream
 
     def write(self, data):
-        # Text string ဖြစ်ဖြစ်၊ Binary output ဖြစ်ဖြစ် ဝင်စစ်မယ်
         if isinstance(data, str):
             if "@SIRZIPP" in data:
                 data = data.replace("@SIRZIPP", "@SuperMgKan")
         elif isinstance(data, bytes):
             if b"@SIRZIPP" in data:
                 data = data.replace(b"@SIRZIPP", b"@SuperMgKan")
-        
-        # မူရင်း buffer ဆီသို့ ပြန်ပို့ပေးမယ်
         self.stream.write(data)
 
     def flush(self):
