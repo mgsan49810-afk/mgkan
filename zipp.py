@@ -2,13 +2,13 @@ import sys
 import os
 
 # ၁။ လက်ရှိ tool လမ်းကြောင်းကို ရှာပြီး Python path ထဲထည့်မယ်
-current_dir = os.path.dirname(os.path.abspath(file))  # file → file ပြောင်းထားဖို့လိုတယ်
+current_dir = os.path.dirname(os.path.abspath(__file__))  # file → __file__ ပြောင်းထားဖို့လိုတယ်
 if current_dir not in sys.path:
     sys.path.insert(0, current_dir)
 
 # ၂။ Low-level standard output buffer ကို ကြားဖြတ်ဖမ်းမည့် Class
 class SafeTextHook:
-    def init(self, original_stream):   # ← ဒီမှာ init လို့ပြောင်း
+    def __init__(self, original_stream):   # ← ဒီမှာ __init__ လို့ပြောင်း
         self.stream = original_stream
 
     def write(self, data):
